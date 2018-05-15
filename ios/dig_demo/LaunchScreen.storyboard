@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="atH-ie-Jbw">
+    <device id="ipad10_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="yXb-lW-nIW">
+            <objects>
+                <viewController id="atH-ie-Jbw" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qXl-g1-ovi">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="wtD-mS-oWd">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="BhW-G3-fNX">
+                                <rect key="frame" x="337" y="220" width="160" height="146"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="D97-WQ-Nli"/>
+                                    <constraint firstAttribute="height" constant="146" id="P1J-IM-B2y"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wtD-mS-oWd" firstAttribute="leading" secondItem="qXl-g1-ovi" secondAttribute="leading" id="AQN-ge-rpy"/>
+                            <constraint firstItem="BhW-G3-fNX" firstAttribute="top" secondItem="Ez8-1I-cNI" secondAttribute="top" constant="60" id="FhY-3w-f9Y">
+                                <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                            </constraint>
+                            <constraint firstAttribute="bottom" secondItem="wtD-mS-oWd" secondAttribute="bottom" id="Gof-ZZ-2ZI"/>
+                            <constraint firstItem="wtD-mS-oWd" firstAttribute="top" secondItem="qXl-g1-ovi" secondAttribute="top" id="bsb-XC-pym"/>
+                            <constraint firstAttribute="trailing" secondItem="wtD-mS-oWd" secondAttribute="trailing" id="moZ-gy-8cA"/>
+                            <constraint firstItem="BhW-G3-fNX" firstAttribute="centerX" secondItem="qXl-g1-ovi" secondAttribute="centerX" id="syj-lq-LFM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ez8-1I-cNI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RRc-Bt-TCD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1194" y="-644"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background" width="5472" height="3648"/>
+        <image name="logo" width="200" height="103"/>
+    </resources>
+</document>
