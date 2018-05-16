@@ -20,16 +20,45 @@ export default class Details extends Component {
 
   constructor(props) {
     super(props);
-
+    const id = props.navigation.state.params && props.navigation.state.params.id;
+    this.state = {
+      id,
+    }
   }
 
   render() {
+    const product = this.props.products.find(p => p.id === this.state.id);
     return (
-      <View>
+      <View style={styles.container}>
+        <Text style={styles.title}>{product.title}</Text>
+        <Text style={[styles.text, styles.price]}>${product.price}</Text>
+        <Text style={[styles.text, styles.header]}>Description:</Text>
+        <Text style={styles.text}>{product.description}</Text>
+        <Text style={[styles.text, styles.header]}>Specifications:</Text>
+        <Text style={[styles.text, styles.specification]}>{product.specification}</Text>
+        
       </View>
     )
   }
 }
 const styles = StyleSheet.create({
-
+  container: {
+    padding: 8,
+  },
+  title: {
+    ...globalStyle.title,
+    marginBottom: 8,
+  },
+  header: {
+    color: globalStyle.darkGray,
+    marginBottom: 4,
+    marginTop: 12,
+  },
+  text: globalStyle.text,
+  price: {
+    color: globalStyle.waterBlue,
+  }, 
+  specification: {
+    fontStyle: 'italic'
+  }
 });

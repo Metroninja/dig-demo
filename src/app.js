@@ -12,6 +12,15 @@ class App extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    /*** 
+     * since some of the dependent libraries still use isMounted, we can hide the yellowbox
+    * warning for the time being.  Please note nowhere in my code is the isMounted() lifecycle
+    * method used
+    ***/
+    console.ignoredYellowBox = ['Warning: isMounted'];
+  }
+
   render() {
     return (
       <Provider store={store}>
