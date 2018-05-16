@@ -7,6 +7,7 @@ const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
 )(createStore);
 
+//boilerplate with some flow magic
 const configureStore = function (initialState: Object = {}): Function {
   const store =  createStoreWithMiddleware(rootReducer, initialState);
   return store;

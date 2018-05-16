@@ -3,22 +3,13 @@ import PropTypes from 'prop-types';
 import { Image, StyleSheet,
   Text, TouchableOpacity, View } from 'react-native';
   import { withNavigation } from 'react-navigation';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
-import { addNote } from '../../actions/products';
 import globalStyle from '../../styles';
 
 @withNavigation
-@connect(
-  state => ({
-  }),
-  dispatch => bindActionCreators({ addNote }, dispatch)
-)
 export default class Product extends Component {
 
   static propTypes = {
-    addNote: PropTypes.func,
     product: PropTypes.object,
     navigation: PropTypes.object,
   };

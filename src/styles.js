@@ -5,11 +5,9 @@ const waterBlue = '#1294ce';
 
 const darkGray = '#2d2e2f';
 const mediumGray = '#787878';
-const lightGray = '#e6e6e6';
-
+const lightGray = '#f6f6f6';
 
 export default globalStyle = {
-  // Original Design Palette Colors:
   black,
   steel,
   waterBlue,

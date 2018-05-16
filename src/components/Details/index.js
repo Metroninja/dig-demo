@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Image, Modal, ScrollView, StyleSheet, 
+import { Image, Modal, ScrollView, StyleSheet, 
   Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { addNote } from '../../actions/products';
-import { Input } from '../common';
+import Comments from './comments';
+import { Gallery } from './gallery';
 import globalStyle from '../../styles';
 
 @connect(
   state => ({
     products: state.products.list,
-    notes: state.products.notes,
   }),
-  dispatch => bindActionCreators({ addNote }, dispatch)
-  
 )
 export default class Details extends Component {
 
   static propTypes = {
-    addNote: PropTypes.func,
+    addComment: PropTypes.func,
     products: PropTypes.array,
-    notes: PropTypes.object,
   };
+
+  static navigationOptions = {
+    title: 'Product Details'
+  }
 
   constructor(props) {
     super(props);
@@ -33,56 +33,32 @@ export default class Details extends Component {
       id,
       modalVisible: false,
     }
-    this._input = null;
-  }
-
-  submitComment() {
-    // get the value from the Input component, then reset it's state to protect from double submit
-
-    const value = this._input.state.value;
-    if(!!value) {
-      this._input.setState({value: ''});
-      this.props.addNote({id: this.state.id, value})
-    }
   }
 
   render() {
-    console.log('this.props.notes', this.props.notes);
+    /***
+     * The majority of this is just rendering the text, it offloads the heavy lifting to the gallery and 
+     * comments components.  Since this is a root page the Modal logic lives here, and it's simple enough
+     * given the product scope to have it here versus as a peer to your router logic and wiring it up to
+     * Redux which would be the normal route. 
+     * Note Displaying the images large version in the requirments in the page didn't feel like a great
+     * user experience so I used the thumbnails as clickable objects to then show the full verison.
+     ***/
     const { id } = this.state;
     const product = this.props.products.find(p => p.id === id );
     const modalContent = !!this.state.modalContent && this.state.modalContent.replace('http', 'https');
-    const notes = this.props.notes[id] || [];
     return (
       <KeyboardAwareScrollView style={styles.container}>
-        <Text style={styles.title}>{product.title}</Text>
-        <Text style={[styles.text, styles.price]}>${product.price}</Text>
-        <Text style={[styles.text, styles.header]}>Description:</Text>
-        <Text style={styles.text}>{product.description}</Text>
-        <Text style={[styles.text, styles.header]}>Specifications:</Text>
-        <Text style={[styles.text, styles.specification]}>{product.specification}</Text>
-        <View style={styles.gallery}>
-          {product.images.map((img, index) => (
-            <TouchableOpacity 
-              style={styles.thumbnail} 
-              onPress={() => this.setState({modalContent: img.original})} 
-              key={index}
-            >
-              <Image style={styles.image} source={{uri: img.thumb.replace('http', 'https')}} />
-            </TouchableOpacity>
-          ))}
+        <View style={styles.content}>
+          <Text style={styles.title}>{product.title}</Text>
+          <Text style={[styles.text, styles.price]}>${product.price}</Text>
+          <Text style={[styles.text, styles.header]}>Description:</Text>
+          <Text style={styles.text}>{product.description}</Text>
+          <Text style={[styles.text, styles.header]}>Specifications:</Text>
+          <Text style={[styles.text, styles.specification]}>{product.specification}</Text>
         </View>
-        <View style={styles.addComment}>
-          <Text style={styles.title}>Add Comment</Text>
-          <Input ref={(r) => this._input = r} multiline={true} />
-          <Button title="Submit" onPress={() => this.submitComment()} color={globalStyle.waterBlue} />
-          <View style={styles.comments}>
-            <Text style={styles.title}>{`Comments (${notes.length})`}</Text>
-            {notes.map((comment, index) => (
-              <Text style={[styles.text, styles.comment]} key={`commentId-${index}`}>{comment}</Text>
-            ))}
-            {!notes.length && (<Text style={[styles.text, styles.comment]}>no comments...</Text>)}
-          </View>
-        </View>
+        <Gallery product={product} onImagePress={(modalContent) => this.setState({modalContent})} />
+        <Comments id={id} />
         <Modal
           animationType="fade"
           transparent={true}
@@ -100,8 +76,10 @@ export default class Details extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
     flex: 1,
+  },
+  content: {
+    padding: 8,
   },
   title: {
     ...globalStyle.title,
@@ -118,20 +96,6 @@ const styles = StyleSheet.create({
   }, 
   specification: {
     fontStyle: 'italic'
-  },
-  gallery: {
-    marginVertical: 24,
-    ...globalStyle.row,
-    justifyContent: 'center',
-  },
-  thumbnail: {
-    marginRight: 8,
-    ...globalStyle.shadow,
-  },
-  image: {
-    height: 100,
-    width: 100,
-    resizeMode: 'contain',
   },
   modal: {
     flex: 1,
@@ -152,15 +116,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFF'
   },
-  addCommnet: {
-    marginBottom: 12,    
-  },
-  comments: {
-    marginBottom: 24,
-  },
-  comment: {
-    fontStyle: 'italic',
-    fontSize: 12,
-    marginBottom: 8,
-  }
 });

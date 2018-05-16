@@ -21,6 +21,10 @@ export default class Home extends Component {
     getProducts: PropTypes.func,
     products: PropTypes.array,
   };
+  
+  static navigationOptions = {
+    title: 'Dig Demo Products'
+  }
 
   constructor(props) {
     super(props);
@@ -31,8 +35,8 @@ export default class Home extends Component {
     // we want to fetch our notes from Async Storage, conver them to JSON and send them with out
     // bootstrap method to get our content.
     try {
-      const notes = await AsyncStorage.getItem('@DIG_Demo:notes');
-      this.props.getProducts({notes: JSON.parse(notes)});
+      const comments = await AsyncStorage.getItem('@DIG_Demo:comments');
+      this.props.getProducts({comments: JSON.parse(comments)});
     } catch(ex) {
       console.log('somehow Async storage broke', ex);
     }

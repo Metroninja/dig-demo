@@ -18,6 +18,7 @@ export default class Routes extends Component {
     );
   }
 }
+//only two pages in the app, relatively simple StackNavigator
 const MainNavigator = StackNavigator({
   Home: {
     screen: Home,
