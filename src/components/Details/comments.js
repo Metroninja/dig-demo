@@ -51,8 +51,12 @@ export default class Comments extends Component {
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.title}>Add Comment</Text>
-          <Input ref={(r) => this._input = r} multiline={true} />
-          <Button title="Submit" onPress={() => this.submitComment()} color={globalStyle.waterBlue} />
+          <Input style={styles.textArea} ref={(r) => this._input = r} multiline={true} />
+          <Button 
+            title="Submit" 
+            onPress={() => this.submitComment()} 
+            color={globalStyle.waterBlue} 
+          />
         </View>
         <View style={styles.comments}>
           <Text style={[styles.title, styles.content]}>{`Comments (${comments.length})`}</Text>
@@ -79,6 +83,9 @@ const styles = StyleSheet.create({
   text: globalStyle.text,  
   comments: {
     marginTop: 12,
+  },
+  textArea: {
+    marginBottom: 4,
   },
   comment: {
     fontStyle: 'italic',

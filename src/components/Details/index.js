@@ -62,6 +62,7 @@ export default class Details extends Component {
         <Modal
           animationType="fade"
           transparent={true}
+          onRequestClose={() => {}}
           visible={!!modalContent}>
           <View style={styles.modal}>
             {!!modalContent && (<Image style={styles.originalImage} source={{uri: modalContent}} />)}

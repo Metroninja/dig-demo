@@ -7,6 +7,7 @@ import globalStyle from '../../styles';
 export default class Input extends Component {
   static propTypes = {
     multiline: PropTypes.bool,
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   }
 
   constructor(props) {
@@ -17,10 +18,10 @@ export default class Input extends Component {
   }
 
   render() {
-    const { multiline } = this.props;
+    const { multiline, style } = this.props;
     return (
       <TextInput
-        style={styles.inputBox}
+        style={[styles.inputBox, style]}
         autoCapitalize="none"
         autoCorrect={true}
         keyboardType="default"

@@ -1,4 +1,4 @@
-package com.logisticsintelligence.mobile;
+package com.dig_demo;
 
 import android.content.Intent;
 import android.os.Bundle;

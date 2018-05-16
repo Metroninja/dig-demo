@@ -53,9 +53,11 @@ export default class Home extends Component {
     const { products } = this.props;
     return (
       <ScrollView>
-        {products.length === 0 && (
-          <Text style={styles.title}>Fetching Content <ActivityIndicator /> </Text>
-        )}
+        {products.length === 0 && [(
+          <Text style={styles.title} key="loading-text">Fetching Content</Text>
+        ), (
+          <ActivityIndicator key="activity-indicator" />
+        )]}
         {products.map((product, index) => <Product product={product} key={product.id || index} />)}
       </ScrollView>
     )
