@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, FlatList, Image, StyleSheet,
-  Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, FlatList, Image, ScrollView, 
+  StyleSheet, Text, TouchableOpacity,  } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -27,19 +27,33 @@ export default class Home extends Component {
 
   }
 
-  componentDidMount() {
-    this.props.getProducts({});
+  async componentDidMount() {
+    // we want to fetch our notes from Async Storage, conver them to JSON and send them with out
+    // bootstrap method to get our content.
+    try {
+      const notes = await AsyncStorage.getItem('@DIG_Demo:notes');
+      this.props.getProducts({notes: JSON.parse(notes)});
+    } catch(ex) {
+      console.log('somehow Async storage broke', ex);
+    }
   }
 
+  /***
+   * Note that if there were more than a few products here, I would use a FlatList component
+   * versus a ScrollView for performance reasons as it LazyLoads content before it is close to the view
+   * Also of note, the reason I'm not using a SafeAreaView or a View wrapper is that the main pages are all 
+   * wrapper by the StackNavigator from react navigation which handles the SafeAreaView for us, particularly 
+   * since we are using the default react-navigation header
+   ***/
   render() {
     const { products } = this.props;
     return (
-      <View>
+      <ScrollView>
         {products.length === 0 && (
           <Text style={styles.title}>Fetching Content <ActivityIndicator /> </Text>
         )}
         {products.map((product, index) => <Product product={product} key={product.id || index} />)}
-      </View>
+      </ScrollView>
     )
   }
 }

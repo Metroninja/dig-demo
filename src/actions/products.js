@@ -2,6 +2,8 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
 
+export const ADD_NOTE = "ADD_NOTE";
+
 
 export const getProducts = ({notes}) => {
   return async (dispatch) =>  {
@@ -15,3 +17,7 @@ export const getProducts = ({notes}) => {
     }
   }
 };
+
+export const addNote = (note) => {
+  return (dispatch) => dispatch({type: ADD_NOTE, note});
+}
